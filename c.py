@@ -45,7 +45,7 @@ def search_korean_users(hashtag, num_users=10):
     
     return usernames
 
-# Fungsi untuk follow pengguna yang ditemukan
+# Fungsi untuk follow pengguna yang ditemuka
 def follow_users(usernames):
     for username in usernames:
         driver.get(f'https://www.instagram.com/{username}/')
