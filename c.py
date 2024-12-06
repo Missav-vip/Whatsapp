@@ -5,7 +5,7 @@ import time
 import random
 
 # Ganti dengan path ke ChromeDriver Anda
-driver_path = 'path/to/chromedriver'
+driver_path = 'path/to/chromedriver'  # Ganti dengan path ChromeDriver Anda
 
 # Fungsi untuk login ke Instagram
 def login_to_instagram(username, password):
@@ -39,9 +39,12 @@ def search_korean_users(hashtag, num_users=10):
     for link in post_links:
         driver.get(link)
         time.sleep(2)
-        user = driver.find_element(By.XPATH, '//a[@href and @title]')
-        usernames.append(user.text)
-        print(f'Found User: {user.text} | Post Link: {link}')
+        try:
+            user = driver.find_element(By.XPATH, '//a[@href and @title]')
+            usernames.append(user.text)
+            print(f'Found User: {user.text} | Post Link: {link}')
+        except Exception as e:
+            print(f'Error fetching user for post {link}: {e}')
     
     return usernames
 
@@ -62,9 +65,9 @@ def follow_users(usernames):
 
 # Fungsi utama
 def main():
-    # Ganti dengan username dan password akun Instagram Anda
-    username_real = 'mrobotfx'
-    password_real = '$22dolar'
+    # Username dan password akun Instagram Anda
+    username_real = 'mrobotfx'  # Username Instagram Anda
+    password_real = '$22dolar'  # Password Instagram Anda
     
     # Login ke Instagram menggunakan akun nyata
     global driver
@@ -74,7 +77,7 @@ def main():
     korean_hashtag = 'korea'  # Bisa diubah ke hashtag yang relevan
 
     # Tentukan jumlah pengguna yang ingin di-follow
-    num_followers_to_add = 100000  # Tentukan jumlah followers yang ingin ditambahkan
+    num_followers_to_add = 100  # Tentukan jumlah followers yang ingin ditambahkan, jangan terlalu banyak untuk testing
 
     # Scrape pengguna yang memposting dengan hashtag Korea
     usernames_to_follow = search_korean_users(korean_hashtag, num_users=10)
