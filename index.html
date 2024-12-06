@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Followers Target</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Instagram Followers Target</h1>
+    <form action="/add-followers" method="post" id="followers-form">
+        <label for="username">Instagram Username:</label>
+        <input type="text" id="username" name="username" required>
+        
+        <label for="country">Target Country:</label>
+        <select id="country" name="country">
+            <option value="Korea">South Korea</option>
+            <option value="USA">USA</option>
+            <option value="Japan">Japan</option>
+        </select>
+        
+        <label for="count">Number of Followers:</label>
+        <input type="number" id="count" name="count" required>
+        
+        <button type="submit">Add Followers</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        const form = document.getElementById('followers-form');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/add-followers', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            document.getElementById('result').innerText = result.message;
+        };
+    </script>
+</body>
+</html>
